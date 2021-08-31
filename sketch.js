@@ -8,6 +8,7 @@ var ball;
 var groundObj;
 var leftSide;
 var rightSide;
+
 function preload()
 {
 	
@@ -21,19 +22,20 @@ function setup() {
 	world = engine.world;
 
 	//Create the Bodies Here.
-var ball_options={
+	var ball_options={
 	isStatic:false,
 	restitution:0.3,
 	friction:0,
 	density:1.2,
 }
-Matter.Bodies.circle(30,height/3,2,ball_options)
-World.add(world,ball)
 
-groundObj=new Ground(width/2,670,width,20);
+	ball=Matter.Bodies.circle(100,height/3-100,2,ball_options);
+	World.add(world,this.ball);
 
-leftSide=new Ground(1100,600,20,120);
-rightSide=new Ground(1300,600,20,120)
+	groundObj=new Ground(width/2,670,width,20);
+
+	leftSide=new Ground(900,600,20,120);
+	rightSide=new Ground(1100,600,20,120)
 
 
 	Engine.run(engine);
@@ -45,8 +47,9 @@ rightSide=new Ground(1300,600,20,120)
 
 
 function draw() {
- 
+	Engine.update(engine);
   background(0);
+  ellipseMode(RADIUS)
 
   ellipse(ball.position.x,ball.position.y,20);
   
@@ -54,7 +57,7 @@ function draw() {
   leftSide.show();
   rightSide.show();
   drawSprites();
- Engine.update(engine);
+
 }
 
 function keyPressed(){
